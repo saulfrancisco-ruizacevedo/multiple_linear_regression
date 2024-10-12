@@ -50,12 +50,9 @@ X_new_student = np.array([[6, 90, 2, 5, 16]])
 X_new_student_norm = scaler.transform(X_new_student)
 Y_pred_new_student = sgdr.predict(X_new_student_norm)
 
-
 # Displaying student data in a table format
 headers = data[:1, :-1][0]
 student_data = [X_new_student[0].tolist()]
 print("\nStudent Data:")
 print(tabulate(student_data, headers, tablefmt="pretty"))
-
-
 print(f"Expected final grade: {Y_pred_new_student[0]:.2f}/100")

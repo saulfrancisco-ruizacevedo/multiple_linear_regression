@@ -75,4 +75,4 @@ Graphs are generated showing:
 -   House prices based on the number of bedrooms
 -   House prices based on age
 
-The price of the new house is highlighted in the graphs.
+The price of the new house is highlighted in the gr
