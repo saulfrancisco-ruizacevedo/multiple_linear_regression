@@ -25,6 +25,8 @@ Y = data[:, 3]   # Price
 # Normalize data
 scaler = StandardScaler()
 X_norm = scaler.fit_transform(X)
+print(X_norm.shape)
+print(Y.shape)
 
 sgdr = SGDRegressor(max_iter=10_000)
 sgdr.fit(X_norm, Y)
@@ -33,9 +35,10 @@ w = sgdr.coef_
 b = sgdr.intercept_
 print(f"w: {w}, b:{b}, Number of iterations: {sgdr.n_iter_}")
 
+
 # Linear Regresion Predictions
 Y_pred = sgdr.predict(X_norm)
-
+print(f"Y_pred: {Y_pred}")
 
 # Prediction for a single house. Area (m²), Bedrooms, Age (years)
 X_new_house = np.array([[
@@ -50,27 +53,27 @@ print(f"Predicted price for new house with an Area of {X_new_house[0, 0]}m², {X
 fig, axs = plt.subplots(3, 1, figsize=(15, 10), constrained_layout=True)
 
 axs[0].set_title('House Prices Based on Area (m²)')
-axs[0].scatter(X[:, 0], Y, color="red", label="Area (m²)", s=75, alpha=0.5, edgecolor='black')
+axs[0].scatter(X[:, 0], Y, color="red", label="Area (m²)", s=75, edgecolor='black')
 axs[0].scatter(X_new_house[:, 0], Y_pred_new_house, color="yellow", s=100, label="New House Prediction", edgecolor='black')
-axs[0].plot(X[:, 0], Y_pred, color="blue", label="Regression Prediction")
+axs[0].scatter(X[:, 0], Y_pred, color="blue", label="Regression Prediction", s=75, edgecolor='black')
 axs[0].set_xlabel("Area (m²)")
 axs[0].set_ylabel("House Price")
 axs[0].grid(linestyle="--", color="green")
 axs[0].legend()
 
 axs[1].set_title('House Prices Based on Bedrooms')
-axs[1].scatter(X[:, 1], Y, color="red", label="Bedrooms (scaled)", s=75, alpha=0.5, edgecolor='black')
+axs[1].scatter(X[:, 1], Y, color="red", label="Bedrooms (scaled)", s=75, edgecolor='black')
 axs[1].scatter(X_new_house[:, 1], Y_pred_new_house, color="yellow", s=100, label="New House Prediction", edgecolor='black')
-axs[1].plot(X[:, 1], Y_pred, color="blue", label="Regression Prediction")
+axs[1].scatter(X[:, 1], Y_pred, color="blue", label="Regression Prediction", s=75, edgecolor='black')
 axs[1].set_xlabel("Bedrooms")
 axs[1].set_ylabel("House Price")
 axs[1].grid(linestyle="--", color="green")
 axs[1].legend()
 
 axs[2].set_title('House Prices Based on Age (years)')
-axs[2].scatter(X[:, 2], Y, color="red", label="Age (scaled)", s=75, alpha=0.5, edgecolor='black')
+axs[2].scatter(X[:, 2], Y, color="red", label="Age (scaled)", s=75, edgecolor='black')
 axs[2].scatter(X_new_house[:, 2], Y_pred_new_house, color="yellow", s=100, label="New House Prediction", edgecolor='black')
-axs[2].plot(X[:, 2], Y_pred, color="blue", label="Regression Prediction")
+axs[2].scatter(X[:, 2], Y_pred, color="blue", label="Regression Prediction", s=75, edgecolor='black')
 axs[2].set_xlabel("Age (years)")
 axs[2].set_ylabel("House Price")
 axs[2].grid(linestyle="--", color="green")
