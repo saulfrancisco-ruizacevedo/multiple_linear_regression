@@ -67,7 +67,7 @@ for index, row in enumerate(np.transpose(data[:, :-1])):
 
     axs[index].scatter(X_index_sorted, Y_sorted, label=X_title, s=70, color="orangered", edgecolor="black")
     axs[index].scatter(X_index_sorted, Y_pred_sorted, color="blue", s=70, label="Prediction", edgecolor="black")
-    axs[index].scatter(X_new_student[0, index], Y[0], color="yellow", s=70, label="New Student Prediction", edgecolor="black")
+    axs[index].scatter(X_new_student[0, index], Y_pred_new_student[0], color="yellow", s=70, label="New Student Prediction", edgecolor="black")
 
     axs[index].set_ylabel(X_title)
     axs[index].set_xlabel("Final Grade (%)")
