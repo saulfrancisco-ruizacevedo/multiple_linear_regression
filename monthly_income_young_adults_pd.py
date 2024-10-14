@@ -12,6 +12,7 @@ The goal is to create a linear regression model that predicts the monthly income
 '''
 from sklearn.linear_model import SGDRegressor
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import r2_score, mean_absolute_error
 import pandas as pd
 
 pd.set_option('display.max_columns', None)
@@ -32,6 +33,7 @@ X_norm = scaler.fit_transform(X)
 
 sgdr = SGDRegressor(max_iter=100_000)
 sgdr.fit(X_norm, Y)
+Y_pred = sgdr.predict(X_norm)
 
 w = sgdr.coef_
 b = sgdr.intercept_
@@ -62,3 +64,11 @@ print(training_data)
 print("\nPredicted Salaries for Young Adults")
 print("=" * 40)
 print(new_young_adults_data_result)
+
+print("\nModel Metrics")
+print("=" * 40)
+mae = mean_absolute_error(Y, Y_pred)
+r2 = r2_score(Y, Y_pred)
+print(f"mae: {mae:.2f} MXN")
+print(f"R-squared (R²): {r2 * 100:,.2f}%")
+

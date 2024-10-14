@@ -13,6 +13,7 @@ Final Grade (%): The final grade percentage achieved by the student.
 import numpy as np
 from sklearn.linear_model import SGDRegressor
 from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import mean_absolute_error, r2_score
 from tabulate import tabulate
 
 data = np.array([
@@ -31,7 +32,7 @@ data = np.array([
 
 
 X = data[1:, :-1]
-Y = data[1:, -1]
+Y = data[1:, -1].astype(float)
 
 # Normalize data
 scaler = StandardScaler()
@@ -39,6 +40,7 @@ X_norm = scaler.fit_transform(X)
 
 sgdr = SGDRegressor(max_iter=10_000)
 sgdr.fit(X_norm, Y)
+Y_pred = sgdr.predict(X_norm)
 
 w = sgdr.coef_
 b = sgdr.intercept_
@@ -56,3 +58,9 @@ student_data = [X_new_student[0].tolist()]
 print("\nStudent Data:")
 print(tabulate(student_data, headers, tablefmt="pretty"))
 print(f"Expected final grade: {Y_pred_new_student[0]:.2f}/100")
+
+print("\nModel Metrics")
+mae = mean_absolute_error(Y, Y_pred)
+r2 = r2_score(Y, Y_pred)
+print(f"mae: {mae:.2f} points")
+print(f"R-squared (R²): {r2 * 100:,.2f}%")
