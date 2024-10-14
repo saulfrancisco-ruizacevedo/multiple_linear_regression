@@ -60,14 +60,10 @@ for index, row in enumerate(np.transpose(data[:, :-1])):
     X_title = row[:1][0]
     X_index = row[1:].astype(float)
 
-    sorted_indexes = np.argsort(X_index)
-    X_index_sorted = X_index[sorted_indexes]
-    Y_sorted = Y[sorted_indexes]
-    Y_pred_sorted = Y_pred[sorted_indexes]
-
-    axs[index].scatter(X_index_sorted, Y_sorted, label=X_title, s=70, color="orangered", edgecolor="black")
-    axs[index].scatter(X_index_sorted, Y_pred_sorted, color="blue", s=70, label="Prediction", edgecolor="black")
+    axs[index].scatter(X_index, Y, label=X_title, s=70, color="orangered", edgecolor="black", alpha=0.5)
+    axs[index].scatter(X_index, Y_pred, color="blue", s=70, label="Prediction", edgecolor="black", alpha=0.5)
     axs[index].scatter(X_new_student[0, index], Y_pred_new_student[0], color="yellow", s=70, label="New Student Prediction", edgecolor="black")
+
 
     axs[index].set_ylabel(X_title)
     axs[index].set_xlabel("Final Grade (%)")
@@ -75,5 +71,10 @@ for index, row in enumerate(np.transpose(data[:, :-1])):
     axs[index].legend()
 
 
-axs[-1].axis('off')
+axs[-1].scatter(Y, Y_pred, alpha=0.5, color='orangered')
+axs[-1].plot([Y.min(), Y.max()], [Y.min(), Y.max()], color="blue", lw=2)
+axs[-1].set_xlabel("Actual Student grade")
+axs[-1].set_ylabel("Predicted Student grade")
+axs[-1].grid(linestyle="--", color="green")
+
 plt.show()
